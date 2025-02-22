@@ -22,6 +22,16 @@ exports.WEBHOOK_CALLBACK = (req, res) => {
 exports.WEBHOOK_EVENT_HANDLER = async (req, res) => {
 
     const messageObject = req.body;
+    axios({
+        method: "POST",
+        url: `https://3ppf5wn4-4000.inc1.devtunnels.ms/api/v1/handle_whatsapp`,
+        data: messageObject,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    return res.status(200).json({ status: "Message received", "messageId": "" });
 
     if (messageObject.object) {
         if (messageObject.entry && messageObject.entry[0].changes && messageObject.entry[0].changes[0].value.messages &&
